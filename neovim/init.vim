@@ -1,9 +1,8 @@
 " 配置
-set number                 " 显示行号
+set number ru et                 " 显示行号
 set nocompatible           " 不开启兼容模式
 filetype plugin indent on  " 根据文件类型开启不同的插件
 syntax enable              " 语法高亮
-filetype indent on         " 开启文件类型检查，并且载入与该类型对应的缩进规则
 set autoindent             " 换行后，保持自动缩进
 set wrap                   " 自动折行
 set linebreak              " 禁止单词内部折行
@@ -22,6 +21,8 @@ set ignorecase             " 搜索时忽略大小写
 set smartcase              " 如果同时打开了ignorecase，那么对于只有一个大写字母的搜索词，将大小写敏感；其他情况都是大小写不敏感。比如，搜索Test时，将不匹配test；搜索test时，将匹配Test
 set spell spelllang=en_us  " 开启英文拼写检查
 set title                  " 显示文件名
+set list                   " 显示空白符
+" autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " 背景透明
 
 set completeopt=noinsert,menuone,noselect
 
@@ -56,19 +57,23 @@ Plug 'honza/vim-snippets'
 " git记录
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'fatih/vim-go'
-
+Plug 'wfxr/protobuf.vim'
+" Plug 'fatih/vim-go'
+"
+" json转go结构体
+Plug 'meain/vim-jsontogo'
 
 call plug#end()
 
 let mapleader = ','         " 设置<leader> 为，默认为\ 
-inoremap jj <Esc>           " map Esc -->jj"
+" map Esc -->jj
+inoremap jj <Esc>
 
 " #####
 " ## nerdtree 配置
 " #####
-nnoremap <leader>v :NERDTreeFind<cr>
-nnoremap <leader>g :NERDTreeToggle<cr>
+nnoremap <leader>v :NERDTreeFind<cr>  " 定位当前文件
+nnoremap <leader>g :NERDTreeToggle<cr>  " 打开关闭nerdtree
 let NERDTreeShowLineNumbers=1
 
 :nn <Leader>1 1gt
@@ -127,7 +132,23 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gm <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> rn <Plug>(coc-rename)
 
+" 使用<cr> 确认补全
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>" 
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+" #####
+" ## 补全快捷键 说明
+" #####
+" Ctrl+n 选择补全列表中的下一项
+" Ctrl+p 选择补全列表中的上一项
+"
+
+"
 " #####
 " ## fzf 配置
 " #####
@@ -142,3 +163,45 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 " ## easymotion 配置
 " #####
 nmap ss <Plug>(easymotion-s2) " 在normal模式下，使用快捷键 ss 再输入目标单词的2字母，easymotion就会在目标单词随机高亮生一个字母，再次按下这个字母，即可快速移动光标到目标单词。注意是当前屏幕显示区域，不是当前整个文件。
+
+" #####
+" ## coc-go 配置
+" ## https://github.com/josa42/coc-go
+" #####
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd FileType go nmap tj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap tlj :CocCommand go.tags.add.line json<cr>
+autocmd FileType go nmap ta :CocCommand go.tags.add json form uri binding<cr>
+autocmd FileType go nmap tfj :CocCommand go.tags.add json form<cr>
+autocmd FileType go nmap tlfj :CocCommand go.tags.add.line json form<cr>
+autocmd FileType go nmap tu :CocCommand go.tags.add.line uri<cr>
+autocmd FileType go nmap tf :CocCommand go.tags.add form<cr>
+autocmd FileType go nmap tlf :CocCommand go.tags.add.line form<cr>
+autocmd FileType go nmap impl :CocCommand go.impl.cursor<cr>
+autocmd FileType go nmap tpa :CocCommand go.tags.add.prompt<cr>
+autocmd FileType go nmap tpr :CocCommand go.tags.remove.prompt<cr>
+autocmd FileType go nmap trj :CocCommand go.tags.remove json<cr>
+autocmd FileType go nmap tlrj :CocCommand go.tags.remove.line json<cr>
+autocmd FileType go nmap trf :CocCommand go.tags.remove form<cr>
+autocmd FileType go nmap tlrf :CocCommand go.tags.remove.line form<cr>
+autocmd FileType go nmap tlru :CocCommand go.tags.remove.line uri<cr>
+autocmd FileType go nmap tc :CocCommand go.tags.clear<cr>
+autocmd FileType go nmap tlc :CocCommand go.tags.clear.line<cr>
+
+" 支持jsonc
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+
+" proto文件缩进设置
+autocmd FileType proto set shiftwidth=2 | set expandtab | set tabstop=2 | set softtabstop=2
+
+
+" 自定义函数 ==================
+" go 文件保存自动import和格式化
+" function FormatGo()
+  " %!goimports
+  " %!gofumpt 
+  " %!goimports-reviser -rm-unused -file-path .
+" endfunction
+
+" autocmd BufWritePost *.go :call FormatGo()
