@@ -63,6 +63,9 @@ Plug 'wfxr/protobuf.vim'
 " json转go结构体
 Plug 'meain/vim-jsontogo'
 
+Plug 'CaiJinKen/vim-fillstruct'
+Plug 'CaiJinKen/vim-sortimport'
+
 call plug#end()
 
 let mapleader = ','         " 设置<leader> 为，默认为\ 
@@ -195,6 +198,9 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " proto文件缩进设置
 autocmd FileType proto set shiftwidth=2 | set expandtab | set tabstop=2 | set softtabstop=2
 
+
+" 自动填充结构体
+autocmd FileType go nmap tf :FillStruct<cr>
 
 " 自定义函数 ==================
 " go 文件保存自动import和格式化
