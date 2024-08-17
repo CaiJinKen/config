@@ -1,0 +1,20 @@
+{
+  "languageserver": {},
+  "go.goplsOptions": {
+    "gofumpt": true,
+    "usePlaceholders": true,
+    "completeUnimported": true,
+    "analyses": {}
+  },
+  "go.tags": {
+    "options": "",
+    "skipUnexported": true,
+    "tags": "json",
+    "transform": "snakecase"
+  },
+  "coc.preferences.formatOnSave": true,
+  "coc.preferences.enableMessageDialog": true,
+  "coc.preferences.messageLevel": "error",
+  "diagnostic.enable": true,
+  "diagnostic.displayByAle": true,
+}

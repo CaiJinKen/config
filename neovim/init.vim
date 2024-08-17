@@ -81,7 +81,7 @@ Plug 'nvim-neotest/nvim-nio'                                " asynchronous IO in
 Plug 'rcarriga/nvim-dap-ui'                                 " dap 的UI
 Plug 'leoluz/nvim-dap-go'                                   " dap-go
 Plug 'CaiJinKen/vim-swaggen'                                " go swag doc 模板
-Plug 'charlespascoe/vim-go-syntax'                          " golang 语法高亮
+" Plug 'charlespascoe/vim-go-syntax'                          " golang 语法高亮
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " nvim-treesitter
 
 call plug#end()
@@ -104,7 +104,8 @@ inoremap jj <Esc>
 " 重新加载vim配置
 nnoremap <leader>r :source $MYVIMRC<CR>
 " ,q 关闭当前tab
-nnoremap <leader>q :tabc<cr> 
+nnoremap <leader>qt :tabc<cr> 
+nnoremap <leader>qw :close<cr> 
 
 " ==============================================================================
 " nerdtree 配置
@@ -402,3 +403,17 @@ EOF
 
 command! EnableDebug :call v:lua.EnableDebug()
 autocmd FileType go nnoremap <leader>db :EnableDebug<cr>
+
+" ============================================================================
+" nvim-tree-sitter
+" ============================================================================
+"
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {"c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "goctl"},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
