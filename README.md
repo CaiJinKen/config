@@ -6,5 +6,5 @@ classic vimscript plugins & config
 [neovim](https://github.com/CaiJinKen/config/tree/master/neovim)
 
 # neovim lua config
-[neovim](https://neovim.io)only! lua config
-[neovim-lua](https://github.com/CaiJinKen/config/tree/master/neovim-lua)
+[neovim](https://neovim.io) only! lua config
+[neovim-lua](https://github.com/CaiJinKen/config/tree/master/nvim-lua)
