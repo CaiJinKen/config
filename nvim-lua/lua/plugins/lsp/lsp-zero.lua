@@ -24,7 +24,7 @@ local M = {
       -- renames all references to the symbol under the coursor
       vim.keymap.set("n", "rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
       vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = false})<cr>", opts)
-      vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+      vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 
       lsp_zero.buffer_autoformat()
     end
