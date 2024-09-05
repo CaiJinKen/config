@@ -2,6 +2,7 @@ vim.g.mapleader = ","
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true })
 -- vim.cmd("syntax on")
 
+vim.opt.mouse = ""
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 vim.opt.title = true

@@ -4,8 +4,8 @@ local M = {
   event = "InsertEnter",
   dependencies = {
     { "onsails/lspkind.nvim" },
-    { "petertriho/cmp-git",      opts = {} },
-    { "hrsh7th/cmp-nvim-lsp",    opts = {} },
+    { "petertriho/cmp-git",        opts = {} },
+    { "hrsh7th/cmp-nvim-lsp",      opts = {} },
     { "hrsh7th/cmp-buffer" },
     { "hrsh7th/cmp-path" },
     { "hrsh7th/cmp-emoji" },
@@ -15,6 +15,7 @@ local M = {
     { "saadparwaiz1/cmp_luasnip" },
     { "L3MON4D3/LuaSnip" },
     { "tamago324/cmp-zsh" },
+    { "kdheepak/cmp-latex-symbols" },
   },
   config = function()
     local cmp = require("cmp")
@@ -33,6 +34,7 @@ local M = {
         { name = "luasnip" },
         { name = "go_pkgs" },
         { name = "zsh" },
+        { name = "latex_symbols" },
       },
       -- select first item by default
       preselect = "item",
@@ -99,10 +101,14 @@ local M = {
         format = lspkind.cmp_format({
           mode = 'symbol_text', -- show only symbol annotations
           menu = {
-            buffer = "[Buffer]",
-            nvim_lsp = "[LSP]",
-            luasnip = "[LuaSnip]",
-            nvim_lua = "[Lua]",
+            buffer        = "[Buffer]",
+            nvim_lsp      = "[LSP]",
+            luasnip       = "[LuaSnip]",
+            nvim_lua      = "[Lua]",
+            path          = "[path]",
+            emoji         = "[Emoji]",
+            go_pkgs       = "[Pkgs]",
+            zsh           = "[zsh]",
             latex_symbols = "[Latex]",
           },
           maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)

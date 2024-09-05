@@ -6,6 +6,8 @@
 vim.cmd("colorscheme material")
 vim.g.material_style = "deep oceani"
 
+vim.api.nvim_set_keymap("n", "<leader>gen", ':lua require("swagen").gen()<CR>', { noremap = true, silent = true })
+
 -- vim.api.nvim_create_augroup("jsontogo", { clear = true })
 -- vim.api.nvim_create_autocmd("FileType", {
 -- 	group = "jsontogo",
