@@ -62,7 +62,13 @@ vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 --
 -- -- Resize window
-vim.keymap.set("n", "<C><left>", "<C-w><")
-vim.keymap.set("n", "<C><right>", "<C-w>>")
-vim.keymap.set("n", "<C><up>", "<C-w>+")
-vim.keymap.set("n", "<C><down>", "<C-w>-")
+-- vim.keymap.set("n", "<C><left>", "<C-w><", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C><right>", "<C-w>>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C><up>", "<C-w>=", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C><down>", "<C-w>-", { noremap = true, silent = true })
+
+-- 使用 Alt 键来调整窗口大小
+vim.api.nvim_set_keymap('n', '<M-Left>', '<C-w><', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<M-Right>', '<C-w>>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<M-Up>', '<C-w>+', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<M-Down>', '<C-w>-', { noremap = true, silent = true })

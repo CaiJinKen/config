@@ -30,7 +30,13 @@ local M = {
     end
 
     lsp_zero.extend_lspconfig({
-      sign_text = true,
+      sign_text = {
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = '»',
+      },
+      -- sign_text = true,
       lsp_attach = lsp_attach,
       capabilities = require("cmp_nvim_lsp").default_capabilities(),
     })

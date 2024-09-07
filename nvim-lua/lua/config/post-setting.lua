@@ -86,3 +86,10 @@ vim.api.nvim_set_keymap("n", "<leader>gen", ':lua require("swagen").gen()<CR>', 
 -- print("line1", firstline, "line2", lastline)
 -- vim.api.nvim_command("!gojson -h")
 -- end
+--
+--
+vim.api.nvim_create_autocmd("FileType", {
+	group = test_group,
+	pattern = "lua",
+	command = "command! -bar -nargs=0 -buffer -range=% Ttt lua require('ttt').ttt()",
+})
